@@ -11,7 +11,7 @@ const userService = require("./user-service.js");
 
 const HTTP_PORT = process.env.PORT || 8080;
 
-// JWT Strategy setup
+
 let ExtractJwt = passportJWT.ExtractJwt;
 let JwtStrategy = passportJWT.Strategy;
 
@@ -39,7 +39,7 @@ app.use(passport.initialize());
 app.use(express.json());
 app.use(cors());
 
-// Register Route (no auth)
+
 app.post("/api/user/register", (req, res) => {
   userService.registerUser(req.body)
     .then((msg) => {
@@ -49,7 +49,7 @@ app.post("/api/user/register", (req, res) => {
     });
 });
 
-// Login Route (no auth)
+
 app.post("/api/user/login", (req, res) => {
   userService.checkUser(req.body)
     .then((user) => {
@@ -103,7 +103,7 @@ app.delete("/api/user/history/:id", passport.authenticate('jwt', { session: fals
     .catch(msg => res.status(401).json({ error: msg }));
 });
 
-// Connect to DB and start server
+
 userService.connect()
   .then(() => {
     app.listen(HTTP_PORT, () => {
